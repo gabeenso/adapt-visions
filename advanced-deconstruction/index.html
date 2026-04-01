@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Deconstruction — Our Vision</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+
+    /* ── Reset & base ── */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #f0f0f0;
+      font-family: 'Source Serif 4', Georgia, serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      gap: 60px;
+    }
+
+    /* ── Print controls (screen only) ── */
+    .print-controls {
+      display: flex;
+      gap: 16px;
+    }
+    .print-controls button {
+      padding: 12px 28px;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+      font-family: 'Source Serif 4', sans-serif;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-light {
+      background: #FFFFFF;
+      color: #003366;
+      border: 1px solid #B5985A;
+    }
+    .btn-dark {
+      background: #003366;
+      color: #FFFFFF;
+    }
+    .print-controls button:hover { opacity: 0.8; }
+
+    @media print {
+      body { background: none; padding: 0; gap: 0; }
+      .print-controls { display: none; }
+      .certificate { page-break-after: avoid; box-shadow: none; }
+    }
+
+    /* ── Certificate base ── */
+    .certificate {
+      width: 794px;
+      min-height: 1123px;
+      padding: 60px 70px;
+      position: relative;
+      box-shadow: 0 4px 40px rgba(0,0,0,0.15);
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    /* ── Inset border ── */
+    .certificate::before {
+      content: '';
+      position: absolute;
+      inset: 18px;
+      border: 1px solid currentColor;
+      opacity: 0.15;
+      pointer-events: none;
+    }
+
+    /* ── Light version ── */
+    .cert-light {
+      background: #FFFFFF;
+      color: #003366;
+    }
+    .cert-light .cert-label { color: #B5985A; }
+    .cert-light .summary-bar { background: #B5985A; }
+    .cert-light .footer-rule { background: #B5985A; }
+    .cert-light .footer-mark { color: #B5985A; }
+
+    /* ── Dark version ── */
+    .cert-dark {
+      background: #003366;
+      color: #FFFFFF;
+    }
+    .cert-dark .cert-label { color: #B5985A; }
+    .cert-dark .summary-bar { background: #B5985A; }
+    .cert-dark .footer-rule { background: #B5985A; opacity: 0.6; }
+    .cert-dark .footer-mark { color: #B5985A; }
+
+    /* ── Typography: Label ── */
+    .cert-label {
+      font-family: 'Source Serif 4', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+
+    /* ── Typography: Heading ── */
+    .cert-heading {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 36px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 32px;
+      max-width: 600px;
+    }
+
+    /* ── Typography: Summary (pull-quote) ── */
+    .cert-summary-wrap {
+      display: flex;
+      gap: 18px;
+      margin-bottom: 36px;
+    }
+    .summary-bar {
+      width: 3px;
+      flex-shrink: 0;
+      border-radius: 2px;
+    }
+    .cert-summary {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 15px;
+      font-style: italic;
+      line-height: 1.7;
+      opacity: 0.85;
+    }
+
+    /* ── Divider ── */
+    .cert-divider {
+      height: 1px;
+      background: currentColor;
+      opacity: 0.12;
+      margin-bottom: 32px;
+    }
+
+    /* ── Typography: Body ── */
+    .cert-body {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 13px;
+      line-height: 1.8;
+      opacity: 0.88;
+      flex: 1;
+      column-count: 2;
+      column-gap: 36px;
+      column-rule: 1px solid currentColor;
+      column-rule-color: currentColor;
+      column-fill: balance;
+    }
+    .cert-body p {
+      margin-bottom: 12px;
+      break-inside: avoid;
+    }
+    .cert-body p:last-child { margin-bottom: 0; }
+
+    /* ── Footer ── */
+    .cert-footer {
+      margin-top: 36px;
+      padding-top: 16px;
+    }
+    .footer-rule {
+      height: 1px;
+      margin-bottom: 14px;
+    }
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Source Serif 4', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.6;
+    }
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .footer-mark {
+      font-size: 18px;
+      opacity: 1;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="print-controls">
+    <button class="btn-light" onclick="printVersion('light')">Print Light Version</button>
+    <button class="btn-dark" onclick="printVersion('dark')">Print Dark Version</button>
+  </div>
+
+  <!-- LIGHT VERSION -->
+  <div class="certificate cert-light" id="cert-light">
+    <div class="cert-label">Our Vision</div>
+    <h1 class="cert-heading">We transform demolition into a respected trade that uplifts people and places.</h1>
+    <div class="cert-summary-wrap">
+      <div class="summary-bar"></div>
+      <p class="cert-summary">Through expert, safe and sustainable demolition and construction&#8209;support services, we maximise material recovery to protect land and waterways, champion rigorous training, apprenticeships and fair pay, create clear pathways to employee ownership, and reinvest time and resources into local communities so our team can solve the toughest projects, innovate responsibly, and thrive.</p>
+    </div>
+    <div class="cert-divider"></div>
+    <div class="cert-body">
+      <p>Advanced Deconstruction is a business where we are encouraged to pursue our passions. Our founders are committed to empowering our team by fostering a legacy of growth and support. We want our people to achieve a balanced and fulfilling life.</p>
+      <p>We serve customers in the construction, building and infrastructure industries. From small businesses to Tier 1 builders.</p>
+      <p>When the job get's hard and no one else will do it, they call Advanced Deconstruction. And we deliver. We're well respected for delivering cutting-edge solutions and creative techniques to complex challenges. We do this while maintaining strong and lasting relationships with our customers where trust remains high.</p>
+      <p>We do cool shit as a team.</p>
+      <p>We find other creative solutions for construction support services which intertwines well with demolition, like structural temporary support works and structural repairs. And we are becoming known as a top tier operator in this space.</p>
+      <p>Our vision for ownership prioritises transitioning the company to current employees, fostering a family-like culture that aligns with our core values. We wish to create a future where those within our team, who share our vision, have the opportunity to realise ownership of a business, that their hard work and passion helped make possible. We envision a thoughtful transfer of ownership to those who contribute significantly, while also being receptive to meaningful opportunities that may arise in the future.</p>
+      <p>Our organisational leaders will be team members who exemplify both technical expertise and cultural integrity. They will have demonstrated experience in all levels of our projects. Our Leaders will understand that the company vision can only be attained through team uplift and accountability, be aligned with that vision, and demonstrate both characteristics themselves. We will support our leaders with structured training processes to ensure they have every opportunity to build meaningful careers and foster the same opportunities for those they steward.</p>
+      <p>Our Operations Leaders are the epitome of field-experienced team members. A structured process for their development will be established, ensuring they receive comprehensive training to effectively apply existing tools and enhance team performance. These leaders will be adept at recognizing and leveraging their team members' strengths while addressing weaknesses in a manner that empowers individuals and fosters accountability within the team.</p>
+      <p>We strive to nurture an engaging workplace where our employees feel valued and respected, as their well-being is a priority for us as owners. Our daily practices reflect a genuine commitment to a living values system that priorities mutual respect among all employees and stakeholders.</p>
+      <p>We recognise hard work through competitive salaries, bonuses, flexibility and opportunity.</p>
+      <p>Our high retention rates are testament to a strong culture and the effectiveness of our efforts to accommodate individual needs and promote collaboration.</p>
+      <p>We invest in better resources and tools to streamline operations and enhance job performance.</p>
+      <p>We prioritise upward mobility strategies to avoid creating &#8220;dead-end&#8221; roles.</p>
+      <p>Our training systems are designed to identify and address skill gaps, ensuring our team members are equipped to excel. Moreover, we maintain a proactive approach to safety, fostering a culture where open communication about safety concerns is paramount, and where every team member is encouraged to challenge unsafe practices. Our commitment is to create an environment where people want to work, thrive, and contribute to our collective success.</p>
+      <p>Our ex-employees view their time at our organisation as a crucial part of their professional growth, recognising us as a company that genuinely cares for its employees and encourages their development. We aspire for all former employees to have had a positive, beneficial experience, retaining fond memories of a supportive team that prioritised their best interests.</p>
+      <p>Our vision for the construction industry, particularly in demolition, is to elevate the perception of our trade by recognising it as a skilled profession. We advocate for the implementation of apprenticeships, fair wages, and structured learning modules to enhance skill levels and safety. Whilst there are challenges in the industry, we earn a reputation that compels others to acknowledge and respect our work.</p>
+      <p>Our business advocates for a pragmatic and effective regulatory framework that priorities genuine worker safety. It's about keeping people safe above all else. We support the recognition of our vocation as a legitimate trade by advocating for programs that lead to formal qualification. Additionally, we believe in reassessing taxation policies to foster a fairer economic environment for the working class.</p>
+      <p>We contribute to environmental sustainability through physical practices by maintaining high recycling goals. We minimise our impact by recycling as much material as possible and operating in a way that safeguards land and waterways. We aim for responsible practices rather than perfection in net-zero goals.</p>
+      <p>We actively engage in initiatives that uplift local organisations and support charities we care about. This includes supplying resources like building materials to local groups, utilising our trucks and machines for community clean-up efforts, and contributing significantly to charitable causes that assist the impoverished.</p>
+      <p>Our business may be demolition, but we will strive to build stronger communities.</p>
+    </div>
+    <div class="cert-footer">
+      <div class="footer-rule"></div>
+      <div class="footer-content">
+        <div class="footer-left">
+          <span class="footer-mark">◆</span>
+          <span>Advanced Deconstruction</span>
+        </div>
+        <span>Asbestos &amp; Demolition Services</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function printVersion(version) {
+      const light = document.getElementById('cert-light');
+      const dark = document.getElementById('cert-dark');
+      const controls = document.querySelector('.print-controls');
+
+      if (version === 'light') {
+        dark.style.display = 'none';
+      } else {
+        light.style.display = 'none';
+      }
+      controls.style.display = 'none';
+
+      window.print();
+
+      setTimeout(() => {
+        light.style.display = '';
+        dark.style.display = '';
+        controls.style.display = '';
+      }, 1000);
+    }
+  </script>
+
+</body>
+</html>
