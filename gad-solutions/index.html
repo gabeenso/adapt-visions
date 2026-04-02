@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GAD Solutions — Our Vision</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+
+    /* ── Reset & base ── */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #f0f0f0;
+      font-family: 'Inter', Georgia, serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      gap: 60px;
+    }
+
+    /* ── Print controls (screen only) ── */
+    .print-controls {
+      display: flex;
+      gap: 16px;
+    }
+    .print-controls button {
+      padding: 12px 28px;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-light {
+      background: #FFFFFF;
+      color: #40464D;
+      border: 1px solid #1EA0C3;
+    }
+    .btn-dark {
+      background: #1E1F26;
+      color: #FFFFFF;
+    }
+    .print-controls button:hover { opacity: 0.8; }
+
+    @media print {
+      body { background: none; padding: 0; gap: 0; }
+      .print-controls { display: none; }
+      .certificate { page-break-after: avoid; box-shadow: none; }
+    }
+
+    /* ── Certificate base ── */
+    .certificate {
+      width: 794px;
+      min-height: 1123px;
+      padding: 60px 70px;
+      position: relative;
+      box-shadow: 0 4px 40px rgba(0,0,0,0.15);
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    /* ── Inset border ── */
+    .certificate::before {
+      content: '';
+      position: absolute;
+      inset: 18px;
+      border: 1px solid currentColor;
+      opacity: 0.15;
+      pointer-events: none;
+    }
+
+    /* ── Light version ── */
+    .cert-light {
+      background: #FFFFFF;
+      color: #40464D;
+    }
+    .cert-light .cert-label { color: #1EA0C3; }
+    .cert-light .summary-bar { background: #1EA0C3; }
+    .cert-light .footer-rule { background: #1EA0C3; }
+    .cert-light .footer-mark { color: #1EA0C3; }
+
+    /* ── Dark version ── */
+    .cert-dark {
+      background: #1E1F26;
+      color: #FFFFFF;
+    }
+    .cert-dark .cert-label { color: #1EA0C3; }
+    .cert-dark .summary-bar { background: #1EA0C3; }
+    .cert-dark .footer-rule { background: #1EA0C3; opacity: 0.6; }
+    .cert-dark .footer-mark { color: #1EA0C3; }
+
+    /* ── Typography: Label ── */
+    .cert-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+
+    /* ── Typography: Heading ── */
+    .cert-heading {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 36px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 32px;
+      max-width: 600px;
+    }
+
+    /* ── Typography: Summary (pull-quote) ── */
+    .cert-summary-wrap {
+      display: flex;
+      gap: 18px;
+      margin-bottom: 36px;
+    }
+    .summary-bar {
+      width: 3px;
+      flex-shrink: 0;
+      border-radius: 2px;
+    }
+    .cert-summary {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 15px;
+      font-style: italic;
+      line-height: 1.7;
+      opacity: 0.85;
+    }
+
+    /* ── Divider ── */
+    .cert-divider {
+      height: 1px;
+      background: currentColor;
+      opacity: 0.12;
+      margin-bottom: 32px;
+    }
+
+    /* ── Typography: Body ── */
+    .cert-body {
+      font-family: 'Inter', Georgia, serif;
+      font-size: 13px;
+      line-height: 1.8;
+      opacity: 0.88;
+      flex: 1;
+      column-count: 2;
+      column-gap: 36px;
+      column-rule: 1px solid currentColor;
+      column-rule-color: currentColor;
+      column-fill: balance;
+    }
+    .cert-body p {
+      margin-bottom: 12px;
+      break-inside: avoid;
+    }
+    .cert-body p:last-child { margin-bottom: 0; }
+
+    /* ── Footer ── */
+    .cert-footer {
+      margin-top: 36px;
+      padding-top: 16px;
+    }
+    .footer-rule {
+      height: 1px;
+      margin-bottom: 14px;
+    }
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.6;
+    }
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .footer-mark {
+      font-size: 18px;
+      opacity: 1;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="print-controls">
+    <button class="btn-light" onclick="printVersion('light')">Print Light Version</button>
+    <button class="btn-dark" onclick="printVersion('dark')">Print Dark Version</button>
+  </div>
+
+  <!-- LIGHT VERSION -->
+  <div class="certificate cert-light" id="cert-light">
+    <div class="cert-label">Our Vision</div>
+    <h1 class="cert-heading">We are the leading Geological Data Management Platform for the global mining and exploration industry.</h1>
+    <div class="cert-summary-wrap">
+      <div class="summary-bar"></div>
+      <p class="cert-summary">We achieve this by being a stable platform which our customers like and trust.</p>
+    </div>
+    <div class="cert-divider"></div>
+    <div class="cert-body">
+      <p>Our comprehensive API integrations facilitate the automation of data acquisition, which enables data science teams to leverage their AI models to enhance their exploration activities.</p>
+      <p>We have built a continually evolving organisational leadership team who are open to learn. They have access to the right tools, frameworks and support from the owners to deliver well for our business, our people and our customers.</p>
+      <p>The leadership team has the time and freedom to develop and improve processes to continue delivering well.</p>
+      <p>Our operational leadership team have clearly defined roles and responsibilities. They have the time, tools and frameworks to develop and maintain both the technical roadmap and a high-performing team to deliver well.</p>
+      <p>Our culture was maintained and continued to be great. We didn't screw it up with bad decisions, bringing in bad people, or not acting on bad behaviour.</p>
+      <p>We've built an enjoyable and safe place to work where our people get to perform well. Where they get to do their best work. Where they can experience a true sense of achievement. And we continue to listen to what our people want and how they believe we can improve and maintain what we've built together.</p>
+      <p>We understand that there are reasons why employees and employers choose to go different ways. We have a great track record that when this is the case, our alumni continue to share positive feedback about our company and platform.</p>
+      <p>We always stay open to welcoming great fit returning employees.</p>
+      <p>To our mining community, we are a reputable and reliable provider that sets the benchmark for our industry. We collaborate with other industry groups and mining professionals to ensure we leverage and expand their existing skills and expertise.</p>
+      <p>Closer to home, we support our employees and their families to invest in and engage with the communities where they live. We do this through sports, hobbies and volunteering projects.</p>
+      <p>Being an ethical business is the standard we set for ourselves through a shared commitment that drives accountability and transparency. May we continue to do good and not evil.</p>
+      <p>We empower exploration and mining companies to restore land by tracking and completing rehabilitation with transparency and accountability. We provide the tools for miners and explorers to work efficiently so they cause minimal environmental impact and save time and money in the process.</p>
+      <p>We aim to develop a mining industry standard for the next decade or two.</p>
+      <p>We create a sustainable financial world for our owners through healthy dividend returns. We create the opportunity for our people to get access to an employee share option plan in service of their financial futures.</p>
+      <p>We remain open to selling the business to the right people.</p>
+    </div>
+    <div class="cert-footer">
+      <div class="footer-rule"></div>
+      <div class="footer-content">
+        <div class="footer-left">
+          <span class="footer-mark">&#9670;</span>
+          <span>GAD Solutions</span>
+        </div>
+        <span>Geology Applications Database Solutions</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- DARK VERSION -->
+  <div class="certificate cert-dark" id="cert-dark">
+    <div class="cert-label">Our Vision</div>
+    <h1 class="cert-heading">We are the leading Geological Data Management Platform for the global mining and exploration industry.</h1>
+    <div class="cert-summary-wrap">
+      <div class="summary-bar"></div>
+      <p class="cert-summary">We achieve this by being a stable platform which our customers like and trust.</p>
+    </div>
+    <div class="cert-divider"></div>
+    <div class="cert-body">
+      <p>Our comprehensive API integrations facilitate the automation of data acquisition, which enables data science teams to leverage their AI models to enhance their exploration activities.</p>
+      <p>We have built a continually evolving organisational leadership team who are open to learn. They have access to the right tools, frameworks and support from the owners to deliver well for our business, our people and our customers.</p>
+      <p>The leadership team has the time and freedom to develop and improve processes to continue delivering well.</p>
+      <p>Our operational leadership team have clearly defined roles and responsibilities. They have the time, tools and frameworks to develop and maintain both the technical roadmap and a high-performing team to deliver well.</p>
+      <p>Our culture was maintained and continued to be great. We didn't screw it up with bad decisions, bringing in bad people, or not acting on bad behaviour.</p>
+      <p>We've built an enjoyable and safe place to work where our people get to perform well. Where they get to do their best work. Where they can experience a true sense of achievement. And we continue to listen to what our people want and how they believe we can improve and maintain what we've built together.</p>
+      <p>We understand that there are reasons why employees and employers choose to go different ways. We have a great track record that when this is the case, our alumni continue to share positive feedback about our company and platform.</p>
+      <p>We always stay open to welcoming great fit returning employees.</p>
+      <p>To our mining community, we are a reputable and reliable provider that sets the benchmark for our industry. We collaborate with other industry groups and mining professionals to ensure we leverage and expand their existing skills and expertise.</p>
+      <p>Closer to home, we support our employees and their families to invest in and engage with the communities where they live. We do this through sports, hobbies and volunteering projects.</p>
+      <p>Being an ethical business is the standard we set for ourselves through a shared commitment that drives accountability and transparency. May we continue to do good and not evil.</p>
+      <p>We empower exploration and mining companies to restore land by tracking and completing rehabilitation with transparency and accountability. We provide the tools for miners and explorers to work efficiently so they cause minimal environmental impact and save time and money in the process.</p>
+      <p>We aim to develop a mining industry standard for the next decade or two.</p>
+      <p>We create a sustainable financial world for our owners through healthy dividend returns. We create the opportunity for our people to get access to an employee share option plan in service of their financial futures.</p>
+      <p>We remain open to selling the business to the right people.</p>
+    </div>
+    <div class="cert-footer">
+      <div class="footer-rule"></div>
+      <div class="footer-content">
+        <div class="footer-left">
+          <span class="footer-mark">&#9670;</span>
+          <span>GAD Solutions</span>
+        </div>
+        <span>Geology Applications Database Solutions</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function printVersion(version) {
+      const light = document.getElementById('cert-light');
+      const dark = document.getElementById('cert-dark');
+      const controls = document.querySelector('.print-controls');
+
+      if (version === 'light') {
+        dark.style.display = 'none';
+      } else {
+        light.style.display = 'none';
+      }
+      controls.style.display = 'none';
+
+      window.print();
+
+      // Restore after print dialog closes
+      setTimeout(() => {
+        light.style.display = '';
+        dark.style.display = '';
+        controls.style.display = '';
+      }, 1000);
+    }
+  </script>
+
+</body>
+</html>
